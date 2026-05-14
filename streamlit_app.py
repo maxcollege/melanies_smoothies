@@ -32,7 +32,7 @@ try:
         for fruit_chosen in ingredients_list:
             try:
                 # Make API request to get details about each fruit
-                ingedients_string += fruit_chosen + ' '
+                ingredients_string += fruit_chosen + ' '
                 st.subheader(fruit_chosen + ' Nutrition Information')
                 smoothiefroot_response = requests.get("https://https://www.smoothiefroot.com/api/fruit/" + fruit_chosen)
                 sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
