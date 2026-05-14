@@ -32,7 +32,7 @@ try:
         for fruit_chosen in ingredients_list:
             ingredients_string += fruit_chosen + ' '
             st.subheader(fruit_chosen + ' Nutrition Information')
-            smoothiefroot_response = requests.get("www.smoothiefroot.com/api/fruit/" + fruit_chosen)
+            smoothiefroot_response = requests.get("https://www.smoothiefroot.com/api/fruit/" + fruit_chosen)
             sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
             smoothiefroot_response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
         # SQL statement to insert order into database (assuming proper handling of SQL injection risk)
