@@ -30,22 +30,11 @@ try:
     if ingredients_list:
         ingredients_string = ''  # Join selected ingredients into a single string
         for fruit_chosen in ingredients_list:
-            try:
-                # Make API request to get details about each fruit
-                ingredients_string += fruit_chosen + ' '
-                st.subheader(fruit_chosen + ' Nutrition Information')
-                smoothiefroot_response = requests.get("https://https://www.smoothiefroot.com/api/fruit/" + fruit_chosen)
-                sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
-                smoothiefroot_response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
-                
-                if smoothiefroot_response.status_code == 200:
-                    fv_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
-                else:
-                    st.warning(f"Failed to fetch details for {fruit_chosen}")
-            
-            except requests.exceptions.RequestException as e:
-                st.error(f"Failed to fetch details for {fruit_chosen}: {str(e)}")
-
+            ingredients_string += fruit_chosen + ' '
+            st.subheader(fruit_chosen + ' Nutrition Information')
+            smoothiefroot_response = requests.get("https://https://www.smoothiefroot.com/api/fruit/" + fruit_chosen)
+            sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+            smoothiefroot_response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
         # SQL statement to insert order into database (assuming proper handling of SQL injection risk)
         my_insert_stmt = """INSERT INTO smoothies.public.orders(ingredients, name_on_order)
                             VALUES ('{}', '{}')""".format(ingredients_string, name_on_order)
